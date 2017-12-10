@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu0210.mapper.CartMapper">
+
+	<insert id="insert_cart" useGeneratedKeys="true" parameterType="com.atguigu0210.bean.T_MALL_SHOPPINGCAR" keyColumn="id" keyProperty="id" >
+		insert INTO t_mall_shoppingcar (
+		sku_mch,
+		sku_jg,
+		tjshl,
+		hj,
+		yh_id,
+		shp_id,
+		sku_id,
+		shp_tp,
+		shfxz,
+		kcdz)
+		 VALUES(
+		 #{sku_mch},
+		 #{sku_jg},
+		 #{tjshl},
+		 #{hj},
+		 #{yh_id},
+		 #{shp_id},
+		 #{sku_id},
+		 #{shp_tp},
+		 #{shfxz},
+		 #{kcdz}
+		 )
+	</insert>
+	
+	<update id="update_car" parameterType="com.atguigu0210.bean.T_MALL_SHOPPINGCAR">
+		update t_mall_shoppingcar
+		<set>
+			<if test="tjshl!=0">
+				tjshl = #{tjshl},
+			</if>
+			<if test="shfxz!='' and shfxz!=null">
+				shfxz = #{shfxz},
+			</if>
+			<if test="hj!=0">
+				hj = #{hj},
+			</if>
+		</set>
+		where
+		id = #{id}
+	</update>
+	
+	<select id="select_list_car_by_user_id"  parameterType="int"
+	resultType="com.atguigu0210.bean.T_MALL_SHOPPINGCAR">
+		select * from t_mall_shoppingcar
+		<where>
+			<if test="yh_id!=0">
+				and yh_id=#{yh_id}
+			</if>
+		</where>
+	</select>
+	
+</mapper>
